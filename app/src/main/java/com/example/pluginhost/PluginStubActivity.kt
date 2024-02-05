@@ -1,21 +1,20 @@
 package com.example.pluginhost
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.AssetManager
 import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import com.example.plugin_scheme.BasePluginActivityDelegate
-import com.example.plugin_scheme.PluginConstant
-import com.example.plugin_scheme.Reflector
-import java.io.File
+import com.example.plugin_scheme.BasePluginActivity
+import com.example.plugin_scheme.IPluginActivity
 
-class PluginStubActivity : AppCompatActivity() {
+class PluginStubActivity : Activity() {
     private var pluginResources: Resources? = null
+    private var pluginAssetManager: AssetManager? =null
     private val pluginLoader = PluginLoader(this)
-    private var basePluginActivityDelegate: BasePluginActivityDelegate? = null
+    private var basePluginActivityDelegate: IPluginActivity? = null
 
     companion object {
         fun inject(context: Context, pluginName: String, activityName: String) {
@@ -35,14 +34,13 @@ class PluginStubActivity : AppCompatActivity() {
             return
         }
         basePluginActivityDelegate = pluginLoader.install(pluginName!!, activityName!!)
-        basePluginActivityDelegate!!.attach(this)
         covertResource()
+
+        basePluginActivityDelegate!!.attach(this)
         basePluginActivityDelegate!!.onCreate(savedInstanceState)
     }
 
     private fun covertResource() {
-        Log.d("adasdasd", "a")
-        val pluginAssetManager: AssetManager
         try {
             // 生成 AssetManager
             pluginAssetManager = AssetManager::class.java.newInstance()
@@ -51,20 +49,29 @@ class PluginStubActivity : AppCompatActivity() {
                 pluginAssetManager?.javaClass?.getMethod("addAssetPath", String::class.java)
             addAssetPathMethod?.invoke(pluginAssetManager, pluginLoader.pluginApkPath)
         } catch (e: Exception) {
-            Log.d("adasdasd", "b")
             return
         }
-        Log.d("adasdasd", "c")
         // 生成插件资源
         pluginResources = Resources(
             pluginAssetManager,
             super.getResources().displayMetrics,
             super.getResources().configuration
         )
+
+        val newTheme = pluginResources?.newTheme()
+        newTheme?.setTo(super.getTheme())
     }
 
     override fun getResources(): Resources {
         return pluginResources ?: super.getResources()
+    }
+
+    override fun getAssets(): AssetManager {
+        return pluginAssetManager ?: super.getAssets()
+    }
+
+    override fun getClassLoader(): ClassLoader {
+        return pluginLoader.dexClassLoader ?: super.getClassLoader()
     }
 
 

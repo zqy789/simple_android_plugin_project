@@ -4,9 +4,9 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 
-import com.example.plugin_scheme.BasePluginActivityDelegate;
+import com.example.plugin_scheme.BasePluginActivity;
 
-public class PluginActivity extends BasePluginActivityDelegate {
+public class PluginActivity extends BasePluginActivity {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

@@ -32,8 +32,10 @@ class HostMainActivity : AppCompatActivity() {
             if (rootDir.exists().not()) {
                 rootDir.mkdir()
             }
-
             val target = File(rootDir.absoluteFile, "plugin1.apk")
+            if (target.exists()) {
+                target.delete()
+            }
             assets.open(path).copyTo(FileOutputStream(target))
             loaded()
         }
