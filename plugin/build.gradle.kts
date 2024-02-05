@@ -37,17 +37,22 @@ android {
 
 }
 
-project.afterEvaluate {
-    project.tasks.find { it.name == "assembleDebug" }?.let {
-        it.doLast {
-            copy {
-                from("${project.buildDir}outputs/apk/debug/plugin-debug.apk")
-                into("${project.rootProject.projectDir}app/src/main/assets")
-                rename("plugin-debug.apk", "plugin.apk")
-            }
+tasks.register("packageApkTransform") {
+    dependsOn(":plugin:assembleDebug")
+    doLast {
+        copy {
+            from("${project.buildDir}/outputs/apk/debug/plugin-debug.apk")
+            into("${project.rootProject.projectDir}/app/src/main/assets")
+            rename("plugin-debug.apk", "plugin1.apk")
+            print("💥💥💥")
         }
     }
 }
+
+
+
+
+
 
 dependencies {
 
