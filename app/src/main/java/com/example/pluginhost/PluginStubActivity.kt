@@ -1,16 +1,14 @@
 package com.example.pluginhost
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.AssetManager
 import android.content.res.Resources
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.plugin_scheme.BasePluginActivity
+import androidx.activity.ComponentActivity
 import com.example.plugin_scheme.IPluginActivity
 
-class PluginStubActivity : Activity() {
+class PluginStubActivity : ComponentActivity() {
     private var pluginResources: Resources? = null
     private var pluginAssetManager: AssetManager? =null
     private val pluginLoader = PluginLoader(this)

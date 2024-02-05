@@ -37,6 +37,18 @@ android {
 
 }
 
+project.afterEvaluate {
+    project.tasks.find { it.name == "assembleDebug" }?.let {
+        it.doLast {
+            copy {
+                from("${project.buildDir}outputs/apk/debug/plugin-debug.apk")
+                into("${project.rootProject.projectDir}app/src/main/assets")
+                rename("plugin-debug.apk", "plugin.apk")
+            }
+        }
+    }
+}
+
 dependencies {
 
     implementation(project(":plugin_scheme"))

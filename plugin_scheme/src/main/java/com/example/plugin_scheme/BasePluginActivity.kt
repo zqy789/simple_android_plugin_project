@@ -1,15 +1,16 @@
 package com.example.plugin_scheme
 
-import android.app.Activity
 import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.activity.ComponentActivity
+import androidx.lifecycle.Lifecycle
 
-open class BasePluginActivity : Activity(), IPluginActivity {
-    var proxyActivity: Activity? = null
+open class BasePluginActivity : ComponentActivity(), IPluginActivity {
+    var proxyActivity: ComponentActivity? = null
 
-    override fun attach(proxyActivity: Activity) {
+    override fun attach(proxyActivity: ComponentActivity) {
         this.proxyActivity = proxyActivity
     }
 
@@ -82,4 +83,9 @@ open class BasePluginActivity : Activity(), IPluginActivity {
         }
         return proxyActivity!!.layoutInflater
     }
+
+    override fun getLifecycle(): Lifecycle {
+        return proxyActivity?.lifecycle ?: super.getLifecycle()
+    }
+
 }

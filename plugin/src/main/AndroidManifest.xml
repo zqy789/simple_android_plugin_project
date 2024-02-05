@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
-        android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
+        android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar"
         android:icon="@drawable/ic_launcher_foreground">
         <activity
             android:name=".MainActivity"

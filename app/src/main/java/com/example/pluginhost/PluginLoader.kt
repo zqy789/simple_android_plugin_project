@@ -1,7 +1,6 @@
 package com.example.pluginhost
 
 import android.content.Context
-import com.example.plugin_scheme.BasePluginActivity
 import com.example.plugin_scheme.IPluginActivity
 import com.example.plugin_scheme.PluginConstant
 import dalvik.system.DexClassLoader
