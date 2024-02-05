@@ -17,6 +17,7 @@ public class PluginActivity extends BasePluginActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //test lifecycle
         getLifecycle().addObserver(new DefaultLifecycleObserver() {
             @Override
             public void onDestroy(@NonNull LifecycleOwner owner) {
