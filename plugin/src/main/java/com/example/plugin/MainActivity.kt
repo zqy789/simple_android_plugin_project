@@ -1,9 +1,9 @@
 package com.example.plugin
 
 import android.os.Bundle
-import com.example.plugin_scheme.BasePluginActivityDelegate
+import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : BasePluginActivityDelegate() {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
